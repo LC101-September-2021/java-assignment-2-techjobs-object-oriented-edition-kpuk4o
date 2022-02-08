@@ -4,6 +4,18 @@ import java.util.Objects;
 
 public class CoreCompetency {
 
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public int getId() {
+        return id;
+    }
+
     private int id;
     private static int nextId = 1;
     private String value;
@@ -36,10 +48,6 @@ public class CoreCompetency {
     @Override
     public int hashCode() {
         return Objects.hash(id);
-    }
-
-    public String getValue() {
-        return value;
     }
 
     // TODO: Use the "Generate" tool to add a getter and setter for the 'value' field but
