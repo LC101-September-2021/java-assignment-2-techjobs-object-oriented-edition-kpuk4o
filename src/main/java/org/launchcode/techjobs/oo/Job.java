@@ -1,10 +1,11 @@
 package org.launchcode.techjobs.oo;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 public class Job {
 
-    private int id;
+    private final int id;
     private static int nextId = 1;
 
     private String name;
@@ -13,24 +14,23 @@ public class Job {
     private PositionType positionType;
     private CoreCompetency coreCompetency;
 
-
     // TODO: Add two constructors - one to initialize a unique ID and a second to initialize the
     //  other five fields. The second constructor should also call the first in order to initialize
     //  the 'id' field.
 
     public Job() {
-        id = nextId;
+        id=nextId;
         nextId++;
     }
+
     public Job(String name, Employer employer, Location location, PositionType positionType, CoreCompetency coreCompetency) {
         this();
-        this.coreCompetency = coreCompetency;
+        this.name = name;
         this.employer = employer;
         this.location = location;
         this.positionType = positionType;
-        this.name = name;
+        this.coreCompetency = coreCompetency;
     }
-
     // TODO: Add custom equals and hashCode methods. Consider two Job objects "equal" when their id fields
     //  match.
 
@@ -47,8 +47,10 @@ public class Job {
         return Objects.hash(id);
     }
 
+
     // TODO: Add getters for each field EXCEPT nextId. Add setters for each field EXCEPT nextID
     //  and id.
+
 
     public int getId() {
         return id;
@@ -94,4 +96,38 @@ public class Job {
         this.coreCompetency = coreCompetency;
     }
 
+    @Override
+    public String toString() {
+        JobField[] fields = new JobField[]{this.employer, this.location, this.positionType, this.coreCompetency};
+        int nullCheck = 0;
+        for (Object field: fields){
+            if (field == null){
+                nullCheck++;
+            }
+        }
+
+        if(nullCheck > 0){
+            return "OOPS! This job does not seem to exist.";
+        }
+
+        String aName = this.name;
+        String aEmployer = this.employer.toString();
+        String aLocation = this.location.toString();
+        String aPositionType = this.positionType.toString();
+        String aCoreCompetency = this.coreCompetency.toString();
+
+        return "\nID: " + this.id +
+                "\nName: " + checkFieldStringForData(aName) +
+                "\nEmployer: " + checkFieldStringForData(aEmployer) +
+                "\nLocation: " + checkFieldStringForData(aLocation) +
+                "\nPosition Type: " + checkFieldStringForData(aPositionType) +
+                "\nCore Competency: "+ checkFieldStringForData(aCoreCompetency) + "\n";
+    }
+
+    public static String checkFieldStringForData (String inputString){
+        if(inputString == null || inputString.equals("")){
+            inputString = "Data not available";
+        }
+        return inputString;
+    }
 }
